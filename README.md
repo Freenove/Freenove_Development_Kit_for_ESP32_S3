@@ -2,7 +2,7 @@
 
 A kit with a Freenove® ESP32-S3 Board for learning programming and electronics.
 
-<img src='Development_Kit.png' width='70%'/>
+<img src='Development_Kit.jpg' width='70%'/>
 
 ESP32-S3 chip is manufactured by Espressif®.
 >Espressif® is a trademark of Espressif Systems (Shanghai) Co.Ltd (https://www.espressif.com/).
@@ -23,7 +23,6 @@ Do NOT click the "Open in Desktop" button, it will lead you to install Github so
 
 1. Download the ZIP file as above.
 2. Unzip it and you will get a folder contains tutorials and related files.
-3. Please start with "Start Here.pdf".
 
 ### Support
 
