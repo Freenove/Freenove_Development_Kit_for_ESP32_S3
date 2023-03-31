@@ -7,7 +7,7 @@
 
 MAX30105 heartrate;                  //apply a module object
 static lv_chart_series_t *series;   //apply an lvgl chart variable
-lvgl_heartrate_ui guider_heartrate_ui;//heartrate ui structure 
+lvgl_heartrate_ui guider_heartrate_ui;//heartrate ui structure
 int heartrate_task_flag = 0;         //heartrate thread running flag
 TaskHandle_t heartrateTaskHandle;    //heartrate thread task handle
 
@@ -62,7 +62,7 @@ void loopTask_heartrate(void *pvParameters) {
     if (irValue < 50000) {
       delay(100);
     }
-    else{
+    else {
       if (checkForBeat(irValue) == true) {
         //We sensed a beat!
         long delta = millis() - lastBeat;
@@ -78,25 +78,24 @@ void loopTask_heartrate(void *pvParameters) {
             beatAvg += rates[x];
           beatAvg /= RATE_SIZE;
         }
+        if (beatAvg != beatAvgLast) {
+          beatAvgLast = beatAvg;
+          lv_label_set_text_fmt(guider_heartrate_ui.heartrate_label, "HeartRate: %d",beatAvg);
+        }
       }
       heartrate_irvalue[irvalueSpot++] = irValue;  //Put the raw data into an array
-      irvalueSpot %= AVERAGE_NUM;                 
+      irvalueSpot %= AVERAGE_NUM;
       long average = heartrate_average(heartrate_irvalue, AVERAGE_NUM);
       show_value = irValue - average + (CHART_HIGH_LIMIT / 2);
-    
-      #if HEARTRATE_SERIAL
-        Serial.printf("%ld %ld %ld\r\n", irValue, average, show_value);
-      #endif
 
+#if HEARTRATE_SERIAL
+      Serial.printf("%ld %ld %ld\r\n", irValue, average, show_value);
+#endif
       if (irValue > 50000 && show_value > CHART_LOW_LIMIT && show_value < CHART_HIGH_LIMIT)
         lv_chart_set_next_value(guider_heartrate_ui.heartrate_chart, series, show_value);
-      if (beatAvg != beatAvgLast) {
-        beatAvgLast = beatAvg;
-        lv_label_set_text_fmt(guider_heartrate_ui.heartrate_label, "HeartRate: %d", beatAvg);
-      }
     }
   }
-  heartrate_shutdown(); 
+  heartrate_shutdown();
   vTaskDelete(heartrateTaskHandle);
 }
 
@@ -139,9 +138,7 @@ static void heartrate_home_event_handler(lv_event_t *e) {
         delay(100);
         if (!lv_obj_is_valid(guider_main_ui.main))
           setup_scr_main(&guider_main_ui);
-        lv_disp_t *d = lv_obj_get_disp(lv_scr_act());
-        if (d->prev_scr == NULL && d->scr_to_load == NULL)
-          lv_scr_load(guider_main_ui.main);
+        lv_scr_load(guider_main_ui.main);
         lv_obj_del(guider_heartrate_ui.heartrate);
       }
       break;
@@ -153,14 +150,14 @@ static void heartrate_home_event_handler(lv_event_t *e) {
 //Parameter configuration function on the heartrate screen
 void setup_scr_heartrate(lvgl_heartrate_ui *ui) {
   ui->heartrate = lv_obj_create(NULL);
-  
+
   static lv_style_t bg_style;
   lv_style_init(&bg_style);
   lv_style_set_bg_color(&bg_style, lv_color_hex(0xffffff));
-  lv_obj_add_style(ui->heartrate, &bg_style, LV_PART_MAIN);  
-  
+  lv_obj_add_style(ui->heartrate, &bg_style, LV_PART_MAIN);
+
   lv_img_home_init();
-  
+
   /*Init the pressed style*/
   static lv_style_t style_pr;//Apply for a style
   lv_style_init(&style_pr);  //Initialize it
@@ -174,7 +171,7 @@ void setup_scr_heartrate(lvgl_heartrate_ui *ui) {
   lv_chart_set_type(ui->heartrate_chart, LV_CHART_TYPE_LINE); /*Show lines and points too*/
   lv_chart_set_div_line_count(ui->heartrate_chart, 5, 10);          //Set chart to 5 rows and 10 columns
   lv_chart_set_point_count(ui->heartrate_chart, 100);               //chart shows the data for 100 points
-  lv_obj_set_style_size(ui->heartrate_chart, 0, LV_PART_INDICATOR); //Make each data point unsalient   
+  lv_obj_set_style_size(ui->heartrate_chart, 0, LV_PART_INDICATOR); //Make each data point unsalient
 
   lv_chart_set_update_mode(ui->heartrate_chart, LV_CHART_UPDATE_MODE_SHIFT);//Move chart to update data
   /*Add two data series*/
@@ -185,11 +182,11 @@ void setup_scr_heartrate(lvgl_heartrate_ui *ui) {
   lv_chart_set_range(ui->heartrate_chart, LV_CHART_AXIS_PRIMARY_Y, CHART_LOW_LIMIT, CHART_HIGH_LIMIT);           //Set the value range of left y axis
 
   ui->heartrate_label = lv_label_create(ui->heartrate);
-  lv_obj_set_pos(ui->heartrate_label, 0, 50);
+  lv_obj_set_pos(ui->heartrate_label, 20, 50);
   lv_obj_set_size(ui->heartrate_label, 140, 40);
-  lv_label_set_text(ui->heartrate_label, "HeartRate:0");
+  lv_label_set_text(ui->heartrate_label, "HeartRate: 0");
   lv_label_set_long_mode(ui->heartrate_label, LV_LABEL_LONG_WRAP);
-  lv_obj_set_style_text_align(ui->heartrate_label, LV_TEXT_ALIGN_CENTER, 0);
+  lv_obj_set_style_text_align(ui->heartrate_label, LV_TEXT_ALIGN_LEFT, 0);
 
   ui->heartrate_home = lv_imgbtn_create(ui->heartrate);
   lv_obj_set_pos(ui->heartrate_home, 150, 20);
@@ -198,6 +195,7 @@ void setup_scr_heartrate(lvgl_heartrate_ui *ui) {
   lv_obj_add_style(ui->heartrate_home, &style_pr, LV_STATE_PRESSED);//Triggered when the button is pressed
 
   lv_obj_add_event_cb(ui->heartrate_home, heartrate_home_event_handler, LV_EVENT_ALL, NULL);
+  heartrate_init();
   create_heartrate_task();
-  heartrate_wake_up(); 
+  heartrate_wake_up();
 }

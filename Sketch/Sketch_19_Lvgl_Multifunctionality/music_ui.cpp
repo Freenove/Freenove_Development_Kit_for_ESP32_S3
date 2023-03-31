@@ -8,7 +8,7 @@
 #include "SD_MMC.h"
 #include "lv_img.h"
 
-lvgl_music_ui guider_music_ui;//music ui structure 
+lvgl_music_ui guider_music_ui;//music ui structure
 int music_button_state = 0;   //UI Button status
 int music_index_num = 1;      //index number of the music
 
@@ -30,10 +30,7 @@ static void music_imgbtn_home_event_handler(lv_event_t *e) {
         stop_music_task();//Close the thread when exiting the musci ui interface
         if (!lv_obj_is_valid(guider_main_ui.main))
           setup_scr_main(&guider_main_ui);
-        lv_disp_t *d = lv_obj_get_disp(lv_scr_act());
-        if (d->prev_scr == NULL && d->scr_to_load == NULL)
-          lv_scr_load(guider_main_ui.main);
-        //After exiting the interface, delete the interface to ensure that the next time you enter the initial interface
+        lv_scr_load(guider_main_ui.main);
         lv_obj_del(guider_music_ui.music);
       }
       break;
@@ -64,7 +61,7 @@ static void music_imgbtn_left_event_handler(lv_event_t *e) {
         //lv_label_set_text(guider_music_ui.music_label, list_find_node(list_music, music_index_num));
         char *buf_music_name = list_find_node(list_music, music_index_num);
         music_set_label_text(buf_music_name);
-        if(buf_music_name!=NULL){
+        if (buf_music_name != NULL) {
           char buf_music_path[255] = {MUSIC_FOLDER};
           strcat(buf_music_path, "/");
           strcat(buf_music_path, buf_music_name);
@@ -102,7 +99,7 @@ static void music_imgbtn_right_event_handler(lv_event_t *e) {
         music_button_state = 0;
         char *buf_music_name = list_find_node(list_music, music_index_num);
         music_set_label_text(buf_music_name);
-        if(buf_music_name!=NULL)
+        if (buf_music_name != NULL)
         {
           char buf_music_path[255] = {MUSIC_FOLDER};
           strcat(buf_music_path, "/");
@@ -132,19 +129,19 @@ static void music_imgbtn_play_event_handler(lv_event_t *e) {
     case LV_EVENT_RELEASED:
       {
         music_button_state = !music_button_state;
-        if (music_button_state == 1) 
+        if (music_button_state == 1)
           lv_img_set_src(guider_music_ui.music_imgbtn_play, &img_playing);
-        else 
+        else
           lv_img_set_src(guider_music_ui.music_imgbtn_play, &img_pause);
 
         //Gets whether a music task currently exists
         int is_task_running = music_task_is_running();
         if (is_task_running == 1) {  //If so, pause or play it
           music_pause_resume();
-        } else {                     
+        } else {
           /*If there is no music thread currently, load the music name first, and then create the audio thread*/
           char *buf_music_name = list_find_node(list_music, music_index_num);
-          if(buf_music_name!=NULL)
+          if (buf_music_name != NULL)
           {
             char buf_music_path[255] = {MUSIC_FOLDER};
             strcat(buf_music_path, "/");
@@ -184,32 +181,32 @@ static void music_imgbtn_stop_event_handler(lv_event_t *e) {
   }
 }
 
-static void music_slider_change_event_handler(lv_event_t * e){
-    lv_obj_t *slider = lv_event_get_target(e);
-    char buf[16];
-    int volume = (int)lv_slider_get_value(slider);
-    lv_snprintf(buf, sizeof(buf), "Volume:%d", volume);
-    lv_label_set_text(guider_music_ui.music_slider_label, buf);
-    int last_volume = music_read_volume();
-    if(volume != last_volume)
-      music_set_volume(volume);
+static void music_slider_change_event_handler(lv_event_t * e) {
+  lv_obj_t *slider = lv_event_get_target(e);
+  char buf[16];
+  int volume = (int)lv_slider_get_value(slider);
+  lv_snprintf(buf, sizeof(buf), "Volume:%d", volume);
+  lv_label_set_text(guider_music_ui.music_slider_label, buf);
+  int last_volume = music_read_volume();
+  if (volume != last_volume)
+    music_set_volume(volume);
 }
 
 //Parameter configuration function on the music screen
 void setup_scr_music(lvgl_music_ui *ui) {
   ui->music = lv_obj_create(NULL);
-  
+
   static lv_style_t bg_style;
   lv_style_init(&bg_style);
   lv_style_set_bg_color(&bg_style, lv_color_hex(0xffffff));
-  lv_obj_add_style(ui->music, &bg_style, LV_PART_MAIN);  
-  
+  lv_obj_add_style(ui->music, &bg_style, LV_PART_MAIN);
+
   lv_img_home_init();
   lv_img_left_init();
   lv_img_right_init();
   lv_img_pause_init();
   lv_img_playing_init();
-  lv_img_stop_init();  
+  lv_img_stop_init();
   setup_list_head_music();
 
   /*Init the pressed style*/
@@ -281,11 +278,11 @@ void setup_scr_music(lvgl_music_ui *ui) {
 }
 
 //Set the label display content
-void music_set_label_text(char *text){
-  if(text!=NULL){
+void music_set_label_text(char *text) {
+  if (text != NULL) {
     lv_label_set_text(guider_music_ui.music_label, text);
   }
-  else{
+  else {
     lv_label_set_text(guider_music_ui.music_label, "The music folder has no files.");
   }
 }
@@ -348,12 +345,12 @@ void loopTask_music(void *pvParameters) {
     int t1 = music_get_total_playing_time();//Gets how long the music player has been playing
     int t2 = music_get_file_duration();     //Gets the playing time of the music file
     int t3 = music_read_play_position();    //Gets the current playing time of the music
-    if(temp==1){
+    if (temp == 1) {
       int t4 = map(t3, 0, t2, 0, 100);
-      if(t4<=100)
+      if (t4 <= 100)
         lv_bar_set_value(guider_music_ui.music_bar_time, t4, LV_ANIM_OFF);
       //Serial.printf("t1: %d\t t2: %d\t t3: %d\t t4: %d\r\n", t1, t2, t3, t4);
-    }    
+    }
     if ((t1 < t2) && (t2 > 0) && (temp == 0)) { //The music starts to play
       lv_bar_set_value(guider_music_ui.music_bar_time, 0, LV_ANIM_OFF);
       temp = 1;
@@ -405,12 +402,7 @@ void audio_info(const char *info) {
   Serial.print("info        ");
   Serial.println(info);
 }
-void audio_eof_mp3(const char *info) {  
+void audio_eof_mp3(const char *info) {
   Serial.print("eof_mp3     ");
   Serial.println(info);
 }
-
-
-
-
-

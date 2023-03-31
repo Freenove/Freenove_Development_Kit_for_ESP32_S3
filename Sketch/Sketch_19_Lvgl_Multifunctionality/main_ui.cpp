@@ -1,7 +1,7 @@
 #include "main_ui.h"
 #include "lv_img.h"
 
-lvgl_main_ui guider_main_ui;//main ui structure 
+lvgl_main_ui guider_main_ui;//main ui structure
 
 //Click the main interface logo, callback function: do nothing
 static void main_imgbtn_logo_event_handler(lv_event_t *e) {
@@ -25,11 +25,8 @@ static void main_imgbtn_camera_event_handler(lv_event_t *e) {
       {
         if (!lv_obj_is_valid(guider_camera_ui.camera))
           setup_scr_camera(&guider_camera_ui);
-        lv_disp_t *d = lv_obj_get_disp(lv_scr_act());
-        if (d->prev_scr == NULL && d->scr_to_load == NULL) {
-          lv_scr_load(guider_camera_ui.camera);
-          lv_obj_del(guider_main_ui.main);
-        }
+        lv_scr_load(guider_camera_ui.camera);
+        lv_obj_del(guider_main_ui.main);
       }
       break;
     default:
@@ -50,11 +47,8 @@ static void main_imgbtn_picture_event_handler(lv_event_t *e) {
       {
         if (!lv_obj_is_valid(guider_picture_ui.picture))
           setup_scr_picture(&guider_picture_ui);
-        lv_disp_t *d = lv_obj_get_disp(lv_scr_act());
-        if (d->prev_scr == NULL && d->scr_to_load == NULL) {
-          lv_scr_load(guider_picture_ui.picture);
-          lv_obj_del(guider_main_ui.main);
-        }
+        lv_scr_load(guider_picture_ui.picture);
+        lv_obj_del(guider_main_ui.main);
       }
       break;
     default:
@@ -75,11 +69,8 @@ static void main_imgbtn_music_event_handler(lv_event_t *e) {
       {
         if (!lv_obj_is_valid(guider_music_ui.music))
           setup_scr_music(&guider_music_ui);
-        lv_disp_t *d = lv_obj_get_disp(lv_scr_act());
-        if (d->prev_scr == NULL && d->scr_to_load == NULL) {
-          lv_scr_load(guider_music_ui.music);
-          lv_obj_del(guider_main_ui.main);
-        }
+        lv_scr_load(guider_music_ui.music);
+        lv_obj_del(guider_main_ui.main);
       }
       break;
     default:
@@ -101,11 +92,8 @@ static void main_imgbtn_heartrate_event_handler(lv_event_t *e) {
       {
         if (!lv_obj_is_valid(guider_heartrate_ui.heartrate))
           setup_scr_heartrate(&guider_heartrate_ui);
-        lv_disp_t *d = lv_obj_get_disp(lv_scr_act());
-        if (d->prev_scr == NULL && d->scr_to_load == NULL) {
-          lv_scr_load(guider_heartrate_ui.heartrate);
-          lv_obj_del(guider_main_ui.main);
-        }
+        lv_scr_load(guider_heartrate_ui.heartrate);
+        lv_obj_del(guider_main_ui.main);
       }
       break;
     default:
@@ -117,12 +105,12 @@ static void main_imgbtn_heartrate_event_handler(lv_event_t *e) {
 void setup_scr_main(lvgl_main_ui *ui) {
   //Write codes main
   ui->main = lv_obj_create(NULL);
-    
+
   static lv_style_t bg_style;
   lv_style_init(&bg_style);
   lv_style_set_bg_color(&bg_style, lv_color_hex(0xffffff));
-  lv_obj_add_style(ui->main, &bg_style, LV_PART_MAIN);  
-  
+  lv_obj_add_style(ui->main, &bg_style, LV_PART_MAIN);
+
   lv_img_freenove_init();
   lv_img_camera_init();
   lv_img_music_init();
