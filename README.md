@@ -71,7 +71,7 @@ http://www.freenove.com
 All the files in this repository are released under [Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License](http://creativecommons.org/licenses/by-nc-sa/3.0/).
 You can find a copy of the license in this repository.
 
-![markdown](https://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png)
+![CC BY-NC-SA](https://i.creativecommons.org/l/by-nc-sa/3.0/88x31.png)
 
 > It means you can use these files on your own derived works, in part or completely. But not for commercial use.
 
