@@ -4,9 +4,9 @@
 #include "FS.h"
 #include "Wire.h"
 
-#define I2S_BCLK   14
-#define I2S_DOUT   13
-#define I2S_LRC    12
+#define I2S_BCLK   42
+#define I2S_DOUT   41
+#define I2S_LRC    14
 
 Audio audio_test;
 TaskHandle_t audioTaskHandle;  //audio test thread task handle
