@@ -1,5 +1,8 @@
 #include "camera.h"
 
+bool camera_flip_vertical_state = 0;
+bool camera_mirror_horizontal_state = 1;
+
 //Initialize the camera drive
 int camera_init(void) {
   camera_config_t config;
@@ -38,7 +41,8 @@ int camera_init(void) {
 
   sensor_t * s = esp_camera_sensor_get();
   // initial sensors are flipped vertically and colors are a bit saturated
-  s->set_vflip(s, 0);      // flip it back
+  s->set_vflip(s, camera_flip_vertical_state);      // flip it back
+  s->set_hmirror(s, camera_mirror_horizontal_state);    // horizontal mirror image
   s->set_brightness(s, 0); // up the brightness just a bit
   s->set_saturation(s, 0); // lower the saturation
 
@@ -46,3 +50,26 @@ int camera_init(void) {
   return 1;
 }
 
+bool camera_get_flip_vertical(void)
+{
+  return camera_flip_vertical_state;
+}
+
+bool camera_get_mirror_horizontal(void)
+{
+  return camera_mirror_horizontal_state;
+}
+
+void camera_set_flip_vertical(bool state)
+{
+  sensor_t * s = esp_camera_sensor_get();
+  camera_flip_vertical_state = state;
+  s->set_vflip(s, camera_flip_vertical_state);
+}
+
+void camera_set_mirror_horizontal(bool state)
+{
+  sensor_t * s = esp_camera_sensor_get();
+  camera_mirror_horizontal_state = state;
+  s->set_hmirror(s, camera_mirror_horizontal_state); 
+}

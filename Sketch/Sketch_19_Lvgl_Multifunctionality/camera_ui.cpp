@@ -127,6 +127,29 @@ static void camera_imgbtn_home_event_handler(lv_event_t *e) {
   }
 }
 
+//Slide the screen to flip the screen
+static void camera_screen_gesture_event_handler(lv_event_t *e) {
+  lv_event_code_t code = lv_event_get_code(e);
+  if (code == LV_EVENT_GESTURE) {
+    lv_dir_t dir = lv_indev_get_gesture_dir(lv_indev_get_act());
+    bool state=0;
+    switch (dir) {
+      case LV_DIR_LEFT:
+      case LV_DIR_RIGHT:
+        state = camera_get_mirror_horizontal();
+        state = !state;
+        camera_set_mirror_horizontal(state);
+        break;
+      case LV_DIR_TOP:
+      case LV_DIR_BOTTOM:
+        state = camera_get_flip_vertical();
+        state = !state;
+        camera_set_flip_vertical(state);
+        break;
+    }
+  }
+}
+
 //Parameter configuration function on the camera screen
 void setup_scr_camera(lvgl_camera_ui *ui) {
   //Write codes camera
@@ -166,5 +189,6 @@ void setup_scr_camera(lvgl_camera_ui *ui) {
 
   lv_obj_add_event_cb(ui->camera_imgbtn_photo, camera_imgbtn_photo_event_handler, LV_EVENT_ALL, NULL);
   lv_obj_add_event_cb(ui->camera_imgbtn_home, camera_imgbtn_home_event_handler, LV_EVENT_ALL, NULL);
+  lv_obj_add_event_cb(ui->camera, camera_screen_gesture_event_handler, LV_EVENT_ALL, NULL);
   create_camera_task();
 }
