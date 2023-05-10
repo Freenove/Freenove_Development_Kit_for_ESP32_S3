@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>form_main</class>
+ <widget class="QWidget" name="form_main">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>940</width>
+    <height>380</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Arial</family>
+    <pointsize>10</pointsize>
+    <weight>50</weight>
+    <italic>false</italic>
+    <bold>false</bold>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>Freenove</string>
+  </property>
+  <property name="autoFillBackground">
+   <bool>true</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">font: 10pt &quot;Arial&quot;;</string>
+  </property>
+  <widget class="QLabel" name="label_main_video_show">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>50</y>
+     <width>320</width>
+     <height>240</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 10pt &quot;Arial&quot;;</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="button_main_video_ccw_90_degree">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>300</y>
+     <width>101</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 10pt &quot;Arial&quot;;
+background-color: rgb(216, 216, 216);</string>
+   </property>
+   <property name="text">
+    <string>CCW-90°</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="button_main_video_cw_90_degree">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>300</y>
+     <width>101</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(216, 216, 216);
+font: 10pt &quot;Arial&quot;;</string>
+   </property>
+   <property name="text">
+    <string>CW-90°</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="button_main_firmware_download">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>340</y>
+     <width>101</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 10pt &quot;Arial&quot;;
+background-color: rgb(216, 216, 216);
+</string>
+   </property>
+   <property name="text">
+    <string>Firmware</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="lineEdit_main_ip_address">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>340</y>
+     <width>101</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 10pt &quot;Arial&quot;;</string>
+   </property>
+   <property name="text">
+    <string>IP Address</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="button_main_connect_remote_ip">
+   <property name="geometry">
+    <rect>
+     <x>120</x>
+     <y>340</y>
+     <width>101</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(216, 216, 216);
+font: 10pt &quot;Arial&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Connect</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="button_main_video_show">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>300</y>
+     <width>101</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: rgb(216, 216, 216);
+font: 10pt &quot;Arial&quot;;</string>
+   </property>
+   <property name="text">
+    <string>Open video</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="button_main_receive_remote_file">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>300</y>
+     <width>291</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 10pt &quot;Arial&quot;;
+background-color: rgb(216, 216, 216);
+</string>
+   </property>
+   <property name="text">
+    <string>Receive remote file</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="button_main_delete_remote_file">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>340</y>
+     <width>291</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 10pt &quot;Arial&quot;;
+background-color: rgb(216, 216, 216);
+</string>
+   </property>
+   <property name="text">
+    <string>Delete remote file</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="button_main_send_local_file">
+   <property name="geometry">
+    <rect>
+     <x>640</x>
+     <y>300</y>
+     <width>291</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 10pt &quot;Arial&quot;;
+background-color: rgb(216, 216, 216);
+</string>
+   </property>
+   <property name="text">
+    <string>Send local file</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="button_main_delete_local_file">
+   <property name="geometry">
+    <rect>
+     <x>640</x>
+     <y>340</y>
+     <width>291</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 10pt &quot;Arial&quot;;
+background-color: rgb(216, 216, 216);
+</string>
+   </property>
+   <property name="text">
+    <string>Delete local file</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="button_main_scan_remote_file">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>10</y>
+     <width>291</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 10pt &quot;Arial&quot;;
+background-color: rgb(216, 216, 216);
+</string>
+   </property>
+   <property name="text">
+    <string>Scan remote folder</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="button_main_scan_local_file">
+   <property name="geometry">
+    <rect>
+     <x>640</x>
+     <y>10</y>
+     <width>291</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 10pt &quot;Arial&quot;;
+background-color: rgb(216, 216, 216);
+</string>
+   </property>
+   <property name="text">
+    <string>Scan local folder</string>
+   </property>
+  </widget>
+  <widget class="QTreeWidget" name="treeWidget_remote">
+   <property name="geometry">
+    <rect>
+     <x>340</x>
+     <y>50</y>
+     <width>291</width>
+     <height>241</height>
+    </rect>
+   </property>
+   <property name="acceptDrops">
+    <bool>false</bool>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Sunken</enum>
+   </property>
+   <property name="midLineWidth">
+    <number>1</number>
+   </property>
+   <property name="sizeAdjustPolicy">
+    <enum>QAbstractScrollArea::AdjustToContents</enum>
+   </property>
+   <property name="showDropIndicator" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="dragDropMode">
+    <enum>QAbstractItemView::NoDragDrop</enum>
+   </property>
+   <property name="alternatingRowColors">
+    <bool>false</bool>
+   </property>
+   <property name="autoExpandDelay">
+    <number>-1</number>
+   </property>
+   <property name="sortingEnabled">
+    <bool>true</bool>
+   </property>
+   <property name="columnCount">
+    <number>2</number>
+   </property>
+   <attribute name="headerMinimumSectionSize">
+    <number>40</number>
+   </attribute>
+   <attribute name="headerDefaultSectionSize">
+    <number>150</number>
+   </attribute>
+   <column>
+    <property name="text">
+     <string>Name</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Size</string>
+    </property>
+   </column>
+   <item>
+    <property name="text">
+     <string>/</string>
+    </property>
+   </item>
+  </widget>
+  <widget class="QTreeWidget" name="treeWidget_local">
+   <property name="geometry">
+    <rect>
+     <x>640</x>
+     <y>50</y>
+     <width>291</width>
+     <height>241</height>
+    </rect>
+   </property>
+   <property name="acceptDrops">
+    <bool>false</bool>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Sunken</enum>
+   </property>
+   <property name="midLineWidth">
+    <number>1</number>
+   </property>
+   <property name="sizeAdjustPolicy">
+    <enum>QAbstractScrollArea::AdjustToContents</enum>
+   </property>
+   <property name="showDropIndicator" stdset="0">
+    <bool>false</bool>
+   </property>
+   <property name="dragDropMode">
+    <enum>QAbstractItemView::NoDragDrop</enum>
+   </property>
+   <property name="alternatingRowColors">
+    <bool>false</bool>
+   </property>
+   <property name="autoExpandDelay">
+    <number>-1</number>
+   </property>
+   <property name="sortingEnabled">
+    <bool>true</bool>
+   </property>
+   <property name="columnCount">
+    <number>2</number>
+   </property>
+   <attribute name="headerMinimumSectionSize">
+    <number>40</number>
+   </attribute>
+   <attribute name="headerDefaultSectionSize">
+    <number>150</number>
+   </attribute>
+   <column>
+    <property name="text">
+     <string>Name</string>
+    </property>
+   </column>
+   <column>
+    <property name="text">
+     <string>Size</string>
+    </property>
+   </column>
+   <item>
+    <property name="text">
+     <string>/</string>
+    </property>
+    <item>
+     <property name="text">
+      <string>router</string>
+     </property>
+     <property name="text">
+      <string>folder</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>picture</string>
+     </property>
+     <property name="text">
+      <string>folder</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>music</string>
+     </property>
+     <property name="text">
+      <string>folder</string>
+     </property>
+    </item>
+   </item>
+  </widget>
+  <widget class="QPushButton" name="button_main_Freenove">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>321</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::NoFocus</enum>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 10pt &quot;Arial&quot;;
+background-color: rgb(216, 216, 216);
+</string>
+   </property>
+   <property name="text">
+    <string>FREENOVE</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
