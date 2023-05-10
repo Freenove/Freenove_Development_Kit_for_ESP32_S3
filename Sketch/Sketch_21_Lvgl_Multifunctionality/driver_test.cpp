@@ -1,5 +1,5 @@
-
 #include "driver_test.h"
+
 #include "Audio.h"
 #include "FS.h"
 #include "Wire.h"
@@ -13,6 +13,7 @@ TaskHandle_t audioTaskHandle;  //audio test thread task handle
 
 int index_line = 0;      //The line to which the record is displayed
 byte iic_address[10];    //Used to store the address scanned by the IIC
+
 //Display the IIC address.
 void tft_display_1(String buf, int data){
   String text;
@@ -158,31 +159,11 @@ int audio_test_isRunning(void)
   return audio_test.isRunning();
 }
 
-//Buzzer initialization
-void buzzer_init(void)
-{
-  pinMode(PIN_BUZZER, OUTPUT);
-  ledcSetup(BUZZER_CHN, BUZZER_FREQUENCY, 10);
-  ledcAttachPin(PIN_BUZZER, BUZZER_CHN);
-  ledcWriteTone(BUZZER_CHN, 0);
-  buzzer_alert(3,1);
-}
 
-//Buzzer alarm function
-void buzzer_alert(int beat, int rebeat)
-{
-  beat = constrain(beat, 1, 9);
-  rebeat = constrain(rebeat, 1, 255);
-  for (int j = 0; j < rebeat; j++)
-  {
-    for (int i = 0; i < beat; i++)
-    {
-      ledcWriteTone(BUZZER_CHN, BUZZER_FREQUENCY);
-      delay(100);
-      ledcWriteTone(BUZZER_CHN, 0);
-      delay(100);
-    }
-    delay(500);
-  }
-  ledcWriteTone(BUZZER_CHN, 0);
-}
+
+
+
+
+
+
+

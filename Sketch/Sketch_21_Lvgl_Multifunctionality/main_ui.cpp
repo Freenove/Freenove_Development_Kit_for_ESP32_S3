@@ -1,14 +1,28 @@
 #include "main_ui.h"
+#include "second_main_ui.h"
 #include "lv_img.h"
 
-lvgl_main_ui guider_main_ui;//main ui structure
+lvgl_main_ui guider_main_ui;  //main ui structure
 
 //Click the main interface logo, callback function: do nothing
 static void main_imgbtn_logo_event_handler(lv_event_t *e) {
   lv_event_code_t code = lv_event_get_code(e);
-
-  if (code == LV_EVENT_CLICKED) {
-    Serial.println("Clicked the logo button.");
+  switch (code) {
+    case LV_EVENT_CLICKED:
+      {
+        Serial.println("Clicked the logo button.");
+      }
+      break;
+    case LV_EVENT_RELEASED:
+      {
+        if (!lv_obj_is_valid(guider_second_main_ui.second_main))
+          setup_scr_second_main(&guider_second_main_ui);
+        lv_scr_load(guider_second_main_ui.second_main);
+        lv_obj_del(guider_main_ui.main);
+      }
+      break;
+    default:
+      break;
   }
 }
 
@@ -118,44 +132,44 @@ void setup_scr_main(lvgl_main_ui *ui) {
   lv_img_picture_init();
 
   /*Init the pressed style*/
-  static lv_style_t style_pr;//Apply for a style
-  lv_style_init(&style_pr);  //Initialize it
-  lv_style_set_translate_y(&style_pr, 5);//Style: Every time you trigger, move down 5 pixels
+  static lv_style_t style_pr;              //Apply for a style
+  lv_style_init(&style_pr);                //Initialize it
+  lv_style_set_translate_y(&style_pr, 5);  //Style: Every time you trigger, move down 5 pixels
 
   //Write codes main_imgbtn_logo
   ui->main_imgbtn_logo = lv_imgbtn_create(ui->main);
   lv_obj_set_pos(ui->main_imgbtn_logo, 40, 20);
   lv_obj_set_size(ui->main_imgbtn_logo, 160, 90);
   lv_img_set_src(ui->main_imgbtn_logo, &img_freenove);
-  lv_obj_add_style(ui->main_imgbtn_logo, &style_pr, LV_STATE_PRESSED);//Triggered when the button is pressed
+  lv_obj_add_style(ui->main_imgbtn_logo, &style_pr, LV_STATE_PRESSED);  //Triggered when the button is pressed
 
   //Write codes main_imgbtn_camera
   ui->main_imgbtn_camera = lv_imgbtn_create(ui->main);
   lv_obj_set_pos(ui->main_imgbtn_camera, 20, 135);
   lv_obj_set_size(ui->main_imgbtn_camera, 80, 80);
   lv_img_set_src(ui->main_imgbtn_camera, &img_camera);
-  lv_obj_add_style(ui->main_imgbtn_camera, &style_pr, LV_STATE_PRESSED);//Triggered when the button is pressed
+  lv_obj_add_style(ui->main_imgbtn_camera, &style_pr, LV_STATE_PRESSED);  //Triggered when the button is pressed
 
   //Write codes main_imgbtn_picture
   ui->main_imgbtn_picture = lv_imgbtn_create(ui->main);
   lv_obj_set_pos(ui->main_imgbtn_picture, 140, 135);
   lv_obj_set_size(ui->main_imgbtn_picture, 80, 80);
   lv_img_set_src(ui->main_imgbtn_picture, &img_picture);
-  lv_obj_add_style(ui->main_imgbtn_picture, &style_pr, LV_STATE_PRESSED);//Triggered when the button is pressed
+  lv_obj_add_style(ui->main_imgbtn_picture, &style_pr, LV_STATE_PRESSED);  //Triggered when the button is pressed
 
   //Write codes main_imgbtn_music
   ui->main_imgbtn_music = lv_imgbtn_create(ui->main);
   lv_obj_set_pos(ui->main_imgbtn_music, 20, 225);
   lv_obj_set_size(ui->main_imgbtn_music, 80, 80);
   lv_img_set_src(ui->main_imgbtn_music, &img_music);
-  lv_obj_add_style(ui->main_imgbtn_music, &style_pr, LV_STATE_PRESSED);//Triggered when the button is pressed
+  lv_obj_add_style(ui->main_imgbtn_music, &style_pr, LV_STATE_PRESSED);  //Triggered when the button is pressed
 
   //Write codes main_imgbtn_heartrate
   ui->main_imgbtn_heartrate = lv_imgbtn_create(ui->main);
   lv_obj_set_pos(ui->main_imgbtn_heartrate, 140, 225);
   lv_obj_set_size(ui->main_imgbtn_heartrate, 80, 80);
   lv_img_set_src(ui->main_imgbtn_heartrate, &img_heartrate);
-  lv_obj_add_style(ui->main_imgbtn_heartrate, &style_pr, LV_STATE_PRESSED);//Triggered when the button is pressed
+  lv_obj_add_style(ui->main_imgbtn_heartrate, &style_pr, LV_STATE_PRESSED);  //Triggered when the button is pressed
 
   lv_obj_add_event_cb(ui->main_imgbtn_logo, main_imgbtn_logo_event_handler, LV_EVENT_ALL, NULL);
   lv_obj_add_event_cb(ui->main_imgbtn_camera, main_imgbtn_camera_event_handler, LV_EVENT_ALL, NULL);
