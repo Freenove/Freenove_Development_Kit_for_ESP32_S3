@@ -51,7 +51,8 @@ class ESP32S3_MainWindow(QtWidgets.QMainWindow,Ui_form_main):
         pixmap_image = QtGui.QPixmap('./image/Development_Kit.png')  #加载视频窗口图片
         self.label_main_video_show.setPixmap(pixmap_image)           #在视频显示框中显示产品图片
 
-        ipValidator = QRegExpValidator(QRegExp('^((2[0-4]\d|25[0-5]|\d?\d|1\d{2})\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$'))
+        #ipValidator = QRegExpValidator(QRegExp('^((2[0-4]\d|25[0-5]|\d?\d|1\d{2})\.){3}(2[0-4]\d|25[0-5]|[01]?\d\d?)$'))
+        ipValidator = QRegExpValidator(QRegExp('^((2[0-4]\\d|25[0-5]|\\d?\\d|1\\d{2})\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)$'))
         self.lineEdit_main_ip_address.setValidator(ipValidator)      #限制IP地址输入框，只能输入IP地址格式
 
         self.local_folder_check()                                    #检查本地文件夹是否存在，存在，则不理会，不存在，则新建文件夹
