@@ -184,7 +184,7 @@ The following is the program code:
 
 Add music decoding header files and SD card drive files.
 
-.. literalinclude:: ../../../freenove_Kit/Sketches/Sketch_06_HeartRate/Sketch_06_HeartRate.ino
+.. literalinclude:: ../../../freenove_Kit/Sketches/Sketch_05_I2S_Audio/Sketch_05_I2S_Audio.ino
     :linenos: 
     :language: c
     :lines: 16-19
@@ -192,7 +192,7 @@ Add music decoding header files and SD card drive files.
 
 Define the drive pins for SD card and IIS. Note that the SD card driver pins cannot be modified, but the IIS drive pins can be modified.
 
-.. literalinclude:: ../../../freenove_Kit/Sketches/Sketch_06_HeartRate/Sketch_06_HeartRate.ino
+.. literalinclude:: ../../../freenove_Kit/Sketches/Sketch_05_I2S_Audio/Sketch_05_I2S_Audio.ino
     :linenos: 
     :language: c
     :lines: 21-27
@@ -201,6 +201,7 @@ Define the drive pins for SD card and IIS. Note that the SD card driver pins can
 Declare an audio decoding object, associate it with the pin, set the volume, and set the decoding object.
 
 .. code-block:: c
+    :linenos:
     
     Audio audio;
     ......
@@ -210,7 +211,7 @@ Declare an audio decoding object, associate it with the pin, set the volume, and
 
 Continuously play music until the current track finishes. Upon receiving data through the serial port, remove any leading or trailing spaces and use the audio object to decode the data.
 
-.. literalinclude:: ../../../freenove_Kit/Sketches/Sketch_06_HeartRate/Sketch_06_HeartRate.ino
+.. literalinclude:: ../../../freenove_Kit/Sketches/Sketch_05_I2S_Audio/Sketch_05_I2S_Audio.ino
     :linenos: 
     :language: c
     :lines: 46-53
@@ -224,6 +225,7 @@ In other words, if you want to switch the music in the SD card, you can directly
 These functions are used to print information about audio decoding. If you don't want to see this information in the serial port, you can simply comment out these functions."
 
 .. code-block:: c
+    :linenos:
     
     void audio_info(const char *info);
     void audio_id3data(const char *info);
