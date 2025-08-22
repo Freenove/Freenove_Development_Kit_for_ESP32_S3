@@ -7,8 +7,8 @@
 #include "Freenove_WS2812_Lib_for_ESP32.h"
 
 #define LEDS_COUNT  1
-#define LEDS_PIN	 48
-#define CHANNEL		  0
+#define LEDS_PIN    48
+#define CHANNEL     0
 
 Freenove_ESP32_WS2812 strip = Freenove_ESP32_WS2812(LEDS_COUNT, LEDS_PIN, CHANNEL, TYPE_GRB);
 
