@@ -113,15 +113,42 @@ This code uses a library named "TFT_eSPI". If you have not installed it, please 
 How to install the library
 ----------------------------
 
-Open Arduino IDE, click SketchInclude LibraryAdd .ZIP Library. In the pop-up window, find the file named "Freenove-Development-Kit-for-ESP32-S3\Libraries\TFT_eSPI.Zip", which locates in this directory, and click OPEN.
+Click Sketch -> Include Library -> Add .ZIP Library...
 
 .. image:: ../_static/imgs/7_Drving_Freenove_2.8-Inch_Screen/Chapter07_05.png
     :align: center
 
-Select TFT_eSPI.zip and click Open.
+Install **TFT_eSPI_v2.5.43.zip** and **TFT_eSPI_Setups_v1.1.zip**
 
 .. image:: ../_static/imgs/7_Drving_Freenove_2.8-Inch_Screen/Chapter07_06.png
     :align: center
+
+How to configure (Important)
+-----------------------------------
+
+Open This PC, input %USERPROFILE%\\Documents\\Arduino\\libraries\\TFT_eSPI_Setups and press the Enter key.
+
+.. image:: ../_static/imgs/7_Drving_Freenove_2.8-Inch_Screen/Chapter07_09.png
+    :align: center
+
+Right click **User_Setup_Select.h**, click **Edit**.
+
+.. image:: ../_static/imgs/7_Drving_Freenove_2.8-Inch_Screen/Chapter07_10.png
+    :align: center
+
+Uncomment the corresponding macro definition based on the model purchased.
+
+.. image:: ../_static/imgs/7_Drving_Freenove_2.8-Inch_Screen/Chapter07_11.png
+    :align: center
+
+If the screen displays inverted colors after burning the code (areas that should be white appear black, and areas that should be black appear white), please enable the configuration item #define FNK0086B_2P8_240x320_ST7789 and comment out the macro definition #define FNK0086A_2P8_240x320_ST7789.
+
+.. image:: ../_static/imgs/7_Drving_Freenove_2.8-Inch_Screen/Chapter07_12.png
+    :align: center
+
+:combo:`red font-bolder:Important Note: Only one macro definition should be uncommented.`
+
+Save the change and exit the file.
 
 Sketch_07_TFT_Clock
 ------------------------------

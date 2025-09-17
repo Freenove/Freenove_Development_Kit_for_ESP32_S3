@@ -107,7 +107,7 @@ Declare the functions so that they can be called in the ino file.
 main_ui.cpp
 ---------------------------
 
-.. literalinclude:: ../../../freenove_Kit/Sketches/Sketch_21_Lvgl_Multifunctionality/main_ui.h
+.. literalinclude:: ../../../freenove_Kit/Sketches/Sketch_21_Lvgl_Multifunctionality/main_ui.cpp
     :linenos: 
     :language: c
     :lines: 1-185
@@ -125,7 +125,7 @@ The callback function for the main interface image buttons, triggered when the c
 
 Create an interface component and set the background color of the component.
 
-.. literalinclude:: ../../../freenove_Kit/Sketches/Sketch_21_Lvgl_Multifunctionality/main_ui.h
+.. literalinclude:: ../../../freenove_Kit/Sketches/Sketch_21_Lvgl_Multifunctionality/main_ui.cpp
     :linenos: 
     :language: c
     :lines: 120-126
@@ -133,7 +133,7 @@ Create an interface component and set the background color of the component.
 
 Initialize image data.
 
-.. literalinclude:: ../../../freenove_Kit/Sketches/Sketch_21_Lvgl_Multifunctionality/main_ui.h
+.. literalinclude:: ../../../freenove_Kit/Sketches/Sketch_21_Lvgl_Multifunctionality/main_ui.cpp
     :linenos: 
     :language: c
     :lines: 128-132
@@ -141,7 +141,7 @@ Initialize image data.
 
 Define a component style. When the component is triggered, the component moves down by 5 pixels.
 
-.. literalinclude:: ../../../freenove_Kit/Sketches/Sketch_21_Lvgl_Multifunctionality/main_ui.h
+.. literalinclude:: ../../../freenove_Kit/Sketches/Sketch_21_Lvgl_Multifunctionality/main_ui.cpp
     :linenos: 
     :language: c
     :lines: 134-137
@@ -149,7 +149,7 @@ Define a component style. When the component is triggered, the component moves d
 
 Set the position and size of the main_imgbtn_logo image button, and specify the image to be displayed. Apply a component style that moves the button down by 5 pixels when it is pressed.
 
-.. literalinclude:: ../../../freenove_Kit/Sketches/Sketch_21_Lvgl_Multifunctionality/main_ui.h
+.. literalinclude:: ../../../freenove_Kit/Sketches/Sketch_21_Lvgl_Multifunctionality/main_ui.cpp
     :linenos: 
     :language: c
     :lines: 139-144
@@ -157,7 +157,7 @@ Set the position and size of the main_imgbtn_logo image button, and specify the 
 
 Set the callback function when the image button main_imgbtn_logo is pressed.
 
-.. literalinclude:: ../../../freenove_Kit/Sketches/Sketch_21_Lvgl_Multifunctionality/main_ui.h
+.. literalinclude:: ../../../freenove_Kit/Sketches/Sketch_21_Lvgl_Multifunctionality/main_ui.cpp
     :linenos: 
     :language: c
     :lines: 174-174
@@ -165,7 +165,7 @@ Set the callback function when the image button main_imgbtn_logo is pressed.
 
 Configure and load the main interface.
 
-.. literalinclude:: ../../../freenove_Kit/Sketches/Sketch_21_Lvgl_Multifunctionality/main_ui.h
+.. literalinclude:: ../../../freenove_Kit/Sketches/Sketch_21_Lvgl_Multifunctionality/main_ui.cpp
     :linenos: 
     :language: c
     :lines: 181-185
@@ -246,7 +246,7 @@ Now the installation is finished.
 Install PyQt5、opencv、numpy and other libraries.
 ------------------------------------------------------
 
-Open the folder Freenove_Development_Kit_for_ESP32_S3\Software\ESP32S3_lvgl_software_setup. 
+Open the folder Freenove_Development_Kit_for_ESP32_S3\\Software\\ESP32S3_lvgl_software_setup. 
 
 .. image:: ../_static/imgs/21_LVGL_Multifunctionality/Chapter21_10.png
     :align: center
@@ -273,7 +273,7 @@ If not all libraries are installed successfully, it will prompt "Some libraries 
 Run main.py
 ---------------------------------
 
-In the same way, open the Freenove_Development_Kit_for_ESP32_S3\Software\ESP32S3_lvgl_software_code folder, and enter CMD in the file bar and press the Enter key.
+In the same way, open the Freenove_Development_Kit_for_ESP32_S3\\Software\\ESP32S3_lvgl_software_code folder, and enter CMD in the file bar and press the Enter key.
 
 .. image:: ../_static/imgs/21_LVGL_Multifunctionality/Chapter21_14.png
     :align: center

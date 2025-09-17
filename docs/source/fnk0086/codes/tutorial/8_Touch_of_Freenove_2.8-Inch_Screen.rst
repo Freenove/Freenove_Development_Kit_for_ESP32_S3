@@ -44,12 +44,15 @@ Connect Freenove ESP32-S3 to the computer using the USB cable.
 Sketch
 ===========================
 
-This code uses a library named "Arduino-FT6336U". If you have not installed it, please do so first.
+This code uses a library named **"Arduino-FT6336U"**. If you have not installed it, please do so first.
 
 How to install the library
 ---------------------------------
 
 Open Arduino IDE, click Sketch -> Include Library -> Add .ZIP Library. In the pop-up window, find the file named " **Freenove-Development-Kit-for-ESP32-S3\\Libraries\\Arduino-FT6336U.Zip** ", which locates in this directory, and click OPEN.
+
+.. image:: ../_static/imgs/8_Touch_of_Freenove_2.8-Inch_Screen/Chapter08_04.png
+    :align: center
 
 Select Arduino-FT6336U.zip and click Open.
 

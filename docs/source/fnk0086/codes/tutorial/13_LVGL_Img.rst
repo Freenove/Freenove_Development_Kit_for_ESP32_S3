@@ -105,9 +105,11 @@ Click "Convert" and the website will generate and download the corresponding arr
 
 Define an array img_freenove_map and copy the content of the previously generated array to it.
 
-.. code-block:: C
+.. code-block:: c
+    :linenos:
+    
     const uint8_t img_freenove_map[] = {
-    ......
+        ......
     };
 
 Define an image type variable img_freenove and write a function lv_img_freenove_init() to initialize it. 

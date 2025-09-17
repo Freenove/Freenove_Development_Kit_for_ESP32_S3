@@ -148,12 +148,12 @@ How to install the library
 
 In this project, we will use the ESP32-audioI2S.zip library to decode the audio files in the SD card, and then output the audio signal through IIS. If you have not installed this library, please follow the steps below to install it.
 
-Open arduino->Sketch->Include library-> Add .ZIP Library. 
+Open arduino -> Sketch -> Include library -> Add .ZIP Library. 
 
 .. image:: ../_static/imgs/5_Play_SD_card_music/Chapter05_10.png
     :align: center
 
-In the newly opened window, select "Freenove-Development-Kit-for-ESP32-S3Libraries\ESP32-audioI2S.zip" and click "Open".
+In the newly opened window, select "Freenove-Development-Kit-for-ESP32-S3Libraries\\ESP32-audioI2S.zip" and click "Open".
 
 .. image:: ../_static/imgs/5_Play_SD_card_music/Chapter05_11.png
     :align: center

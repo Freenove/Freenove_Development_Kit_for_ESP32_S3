@@ -9,7 +9,6 @@ Mount four M3*5 brass standoffs to the ESP32-S3 WROOM shield with four M3*4 scre
 
 .. list-table:: 
    :width: 100%
-   :header-rows: 1 
    :align: center
    
    * -  |Chapter00_00|
@@ -25,7 +24,6 @@ Mount four M3*8+3 single-pass standoffs to the back of the screen.
 
 .. list-table:: 
    :width: 100%
-   :header-rows: 1 
    :align: center
    
    * -  |Chapter00_02|
@@ -38,7 +36,6 @@ Plug the screen to ESP32-S3 WROOM Shield.
 
 .. list-table:: 
    :width: 100%
-   :header-rows: 1 
    :align: center
    
    * -  |Chapter00_04|
@@ -53,7 +50,6 @@ Fix the screen to ESP32-S3 WROOM Shield with four M3*4 screws.
 
 .. list-table:: 
    :width: 100%
-   :header-rows: 1 
    :align: center
    
    * -  |Chapter00_06|
@@ -69,7 +65,6 @@ Carefully tear the sticker on the back of the speakers and attach them to the ES
 
 .. list-table:: 
    :width: 100%
-   :header-rows: 1 
    :align: center
    
    * -  |Chapter00_08|
@@ -90,7 +85,6 @@ Plug the audio module to the shield.
 
 .. list-table:: 
    :width: 100%
-   :header-rows: 1 
    :align: center
    
    * -  |Chapter00_11|
@@ -133,7 +127,6 @@ Plug the ESP32-S3 WROOM to the shield.
 
 .. list-table:: 
    :width: 100%
-   :header-rows: 1 
    :align: center
    
    * -  |Chapter00_17|
@@ -151,18 +144,17 @@ Plug the MAX30102to the shield.
 
 .. list-table:: 
    :width: 100%
-   :header-rows: 1 
    :align: center
    
-   * -  |Chapter00_17|
-     -  |Chapter00_18|
+   * -  |Chapter00_19|
+     -  |Chapter00_20|
 
-.. |Chapter00_17| image:: ../_static/imgs/0_Assembly/Chapter00_19.png
-.. |Chapter00_18| image:: ../_static/imgs/0_Assembly/Chapter00_20.png
+.. |Chapter00_19| image:: ../_static/imgs/0_Assembly/Chapter00_19.png
+.. |Chapter00_20| image:: ../_static/imgs/0_Assembly/Chapter00_20.png
 
 :red:`Important notes:`
 
-:red:`The MAX30102 module should not be connected reversely, otherwise it may affect the circuit, or even cause damages. It must be connected strictly according to the texts on the board. Make sure the pins are connected pin to pin. `
+:red:`The MAX30102 module should not be connected reversely, otherwise it may affect the circuit, or even cause damages. It must be connected strictly according to the texts on the board. Make sure the pins are connected pin to pin.`
 
 .. image:: ../_static/imgs/0_Assembly/Chapter00_21.png
     :align: center
