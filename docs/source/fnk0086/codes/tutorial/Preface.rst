@@ -10,9 +10,10 @@ ESP32-S3 WROOM
 ESP32-S3-WROOM-1 has launched a total of two antenna packages, PCB on-board antenna and IPEX antenna respectively. The PCB on-board antenna is an integrated antenna in the chip module itself, so it is convenient to carry and design. The IPEX antenna is a metal antenna derived from the integrated antenna of the chip module itself, which is used to enhance the signal of the module.
 
 .. list-table:: 
-   :width: 100%
+   :width: 80%
    :header-rows: 1 
    :align: center
+   :class: table-line
    
    * -  PCB on-board antenna
      -  IPEX antenna
@@ -38,9 +39,10 @@ The hardware interfaces of ESP32-S3 WROOM are distributed as follows:
 Compare the left and right images. We've boxed off the resources on the ESP32-S3 WROOM in different colors to facilitate your understanding of the ESP32-S3 WROOM.
 
 .. list-table:: 
-   :width: 100%
+   :width: 70%
    :header-rows: 1 
    :align: center
+   :class: text-center table-line
    
    * -  Box color 
      -  Corresponding resources introduction
@@ -105,37 +107,42 @@ When using the camera of our ESP32-S3 WROOM, please check the pins of it. Pins w
 .. image:: ../_static/imgs/Preface/Preface10.png
     :align: center
 
-+-----------+----------+
-|  CAM_Pin  | GPIO_pin |
-+===========+==========+
-| SIOD      | GPIO4    |
-+-----------+----------+
-| SIOC      | GPIO5    |
-+-----------+----------+
-| CSI_VYSNC | GPIO6    |
-+-----------+----------+
-| CSI_HREF  | GPIO7    |
-+-----------+----------+
-| CSI_Y9    | GPIO16   |
-+-----------+----------+
-| XCLK      | GPIO15   |
-+-----------+----------+
-| CSI_Y8    | GPIO17   |
-+-----------+----------+
-| CSI_Y7    | GPIO18   |
-+-----------+----------+
-| CSI_PCLK  | GPIO13   |
-+-----------+----------+
-| CSI_Y6    | GPIO12   |
-+-----------+----------+
-| CSI_Y2    | GPIO11   |
-+-----------+----------+
-| CSI_Y5    | GPIO10   |
-+-----------+----------+
-| CSI_Y3    | GPIO9    |
-+-----------+----------+
-| CSI_Y4    | GPIO8    |
-+-----------+----------+
+.. table::
+    :align: center
+    :class: text-center zebra
+    :width: 50%
+    
+    +-----------+-----------+
+    |  CAM_Pin  |  GPIO_pin |
+    +===========+===========+
+    | SIOD      |  GPIO4    |
+    +-----------+-----------+
+    | SIOC      |  GPIO5    |
+    +-----------+-----------+
+    | CSI_VYSNC |  GPIO6    |
+    +-----------+-----------+
+    | CSI_HREF  |  GPIO7    |
+    +-----------+-----------+
+    | CSI_Y9    |  GPIO16   |
+    +-----------+-----------+
+    | XCLK      |  GPIO15   |
+    +-----------+-----------+
+    | CSI_Y8    |  GPIO17   |
+    +-----------+-----------+
+    | CSI_Y7    |  GPIO18   |
+    +-----------+-----------+
+    | CSI_PCLK  |  GPIO13   |
+    +-----------+-----------+
+    | CSI_Y6    |  GPIO12   |
+    +-----------+-----------+
+    | CSI_Y2    |  GPIO11   |
+    +-----------+-----------+
+    | CSI_Y5    |  GPIO10   |
+    +-----------+-----------+
+    | CSI_Y3    |  GPIO9    |
+    +-----------+-----------+
+    | CSI_Y4    |  GPIO8    |
+    +-----------+-----------+
 
 If you have any questions regarding GPIO information, you can click :ref:`here <Preface>` to navigate back to the ESP32-S3 WROOM and view specific GPIO details.
 
@@ -251,82 +258,64 @@ Programming Software
 
 Arduino Software (IDE) is used to write and upload the code for Arduino Board.
 
-First, install Arduino Software (IDE): visit https://www.arduino.cc, click "Download" to enter the download page.
+First, install Arduino Software (IDE): visit https://www.arduino.cc/en/software/
 
-.. image:: ../_static/imgs/Preface/Preface27.png
+.. image:: ../_static/imgs/ArduinoIDE/Preface03.png
+    :align: center
+    :width: 99%
+    :class: image-border
+
+Select and download corresponding installer based on your operating system. If you are a Windows user, please select the "Windows" to download and install the driver correctly.
+
+.. image:: ../_static/imgs/ArduinoIDE/Preface04.png
     :align: center
 
-Select and download corresponding installer according to your operating system. If you are a windows user, please select the "Windows" to download and install it correctly.
+After the downloading completes, run the installer. For Windows users, there may pop up an installation dialog box of driver during the installation process. When it is popped up, please allow the installation.
 
-.. image:: ../_static/imgs/Preface/Preface28.png
+After installation is completed, an shortcut will be generated in the desktop.
+
+.. image:: ../_static/imgs/ArduinoIDE/Preface05.png
     :align: center
 
-After the download completes, run the installer. For Windows users, there may pop up an installation dialog box of driver during the installation process. When it popes up, please allow the installation.
+Run it. The interface of the software is as follows:
 
-After installation completes, an Arduino Software shortcut will be generated in the desktop. Run the Arduino Software.
-
-.. image:: ../_static/imgs/Preface/Preface29.png
+.. image:: ../_static/imgs/ArduinoIDE/Preface06.png
     :align: center
 
-The interface of Arduino Software is as follows:
+Programs written with Arduino IDE are called sketches. These sketches are written in a text editor and are saved with the file extension.ino. The editor has features for cutting/pasting and for searching/replacing text. The console displays text output by the Arduino IDE, including complete error messages and other information. The bottom right-hand corner of the window displays the configured board and serial port. The toolbar buttons allow you to verify and upload programs, open the serial monitor, and access the serial plotter.
 
-.. image:: ../_static/imgs/Preface/Preface30.png
+.. table::
     :align: center
+    :class: table-line
+    :width: 80%
+    
+    +-------------+---------------------------------------------------------------------+
+    | |Arduino07| | Verify                                                              |
+    |             |                                                                     |
+    |             | Checks your code for errors compiling it.                           |
+    +-------------+---------------------------------------------------------------------+
+    | |Arduino08| | Upload                                                              |
+    |             |                                                                     |
+    |             | Compiles your code and uploads it to the configured board.          |
+    +-------------+---------------------------------------------------------------------+
+    | |Arduino09| | Debug                                                               |
+    |             |                                                                     |
+    |             | Troubleshoot code errors and monitor program running status.        |
+    +-------------+---------------------------------------------------------------------+
+    | |Arduino10| | Serial Plotter                                                      |
+    |             |                                                                     |
+    |             | Real-time plotting of serial port data charts.                      |
+    +-------------+---------------------------------------------------------------------+
+    | |Arduino11| | Serial Monitor                                                      |
+    |             |                                                                     |
+    |             | Used for debugging and communication between devices and computers. |
+    +-------------+---------------------------------------------------------------------+
 
-Programs written with Arduino Software (IDE) are called **sketches** . These sketches are written in the text editor and saved with the file extension.ino. The editor features text cutting/pasting and searching/replacing. The message area gives feedback while saving and exporting and also displays errors. The console displays text output by the Arduino Software (IDE), including complete error messages and other information. The bottom right-hand corner of the window displays the configured board and serial port. The toolbar buttons allow you to verify and upload programs, create, open, and save sketches, and open the serial monitor.
-
-.. list-table:: 
-   :width: 100%
-   :header-rows: 1 
-   :align: center
-   
-
-   * -  |Preface31|
-     -  Verify 
-        
-        Check your code for compile errors.
-
-   * -  |Preface32|
-     -  Upload 
-        
-        Compile your code and upload them to 
-        
-        the configured board. 
-
-   * -  |Preface33|
-     -  Debug
-        
-        Debug code running on the board. 
-        
-        (Some development boards do not support this function)
-
-   * -  |Preface34|
-     -  Development board selection
-        
-        Configure the support package and upload 
-        
-        port of the development board.
-
-   * -  |Preface35|
-     -  Serial Plotter
-        
-        Receive serial port data and plot it in a 
-        
-        discounted graph.
-
-   * -  |Preface35|
-     -  Serial Monitor 
-        
-        Open the serial monitor. 
-
-.. |Preface31| image:: ../_static/imgs/Preface/Preface04.png
-.. |Preface32| image:: ../_static/imgs/Preface/Preface05.png
-.. |Preface33| image:: ../_static/imgs/Preface/Preface06.png
-.. |Preface34| image:: ../_static/imgs/Preface/Preface07.png
-.. |Preface35| image:: ../_static/imgs/Preface/Preface08.png
-.. |Preface36| image:: ../_static/imgs/Preface/Preface36.png
-
-Additional commands are found within the five menus: File, Edit, Sketch, Tools, Help. The menus are context sensitive, which means only those items relevant to the work currently being carried out are available.
+.. |Arduino07| image:: ../_static/imgs/ArduinoIDE/Preface07.png
+.. |Arduino08| image:: ../_static/imgs/ArduinoIDE/Preface08.png
+.. |Arduino09| image:: ../_static/imgs/ArduinoIDE/Preface09.png
+.. |Arduino10| image:: ../_static/imgs/ArduinoIDE/Preface10.png
+.. |Arduino11| image:: ../_static/imgs/ArduinoIDE/Preface11.png
 
 Environment Configuration
 ***********************************
