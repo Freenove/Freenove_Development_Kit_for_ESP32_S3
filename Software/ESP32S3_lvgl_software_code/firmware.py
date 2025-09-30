@@ -1,36 +1,65 @@
 #!/usr/bin/python3
 # -*- coding:utf-8 -*-
-# @Time: 2023/04/20
+# @Time: 2025/09/30
 # @Author: 林镇涛
 # @Company: Freenove
 
 import os
-import sys                                 #添加系统传参对象
-import serial                              #添加系统串口配置对象
-import serial.tools.list_ports             #添加串口工具表对象
-from PyQt5 import QtWidgets,QtCore         #添加窗口对象
-from PyQt5.QtGui import QIcon              #添加图标对象
-import platform                            #识别系统平台
+import sys                                 # Add system parameter object
+import serial                              # Add system serial configuration object
+import serial.tools.list_ports             # Add serial tools list object
+from PyQt5 import QtWidgets,QtCore         # Add window object
+from PyQt5.QtGui import QIcon              # Add icon object
+import platform                            # Identify system platform
 from Thread import *
 import subprocess
+from PyQt5.QtWidgets import QDialog, QVBoxLayout, QPushButton, QLabel
 
-from ui.ui_firmware import Ui_widget_firmware #导入串口界面对象
-from Command import COMMAND                #导入esptool指令参数
+from ui.ui_firmware import Ui_widget_firmware # Import serial interface object
+from Command import COMMAND                # Import esptool command parameters
+
+# Add new firmware selection dialog class in ESP32S3_Firmware class
+class FirmwareSelectionDialog(QDialog):
+    def __init__(self, parent=None):
+        super().__init__(parent)
+        self.setWindowTitle("Select Firmware")
+        self.setFixedSize(300, 150)
+        self.selected_firmware = None
+        
+        layout = QVBoxLayout()
+        
+        label = QLabel("Please select firmware to upload:")
+        layout.addWidget(label)
+        
+        btn_cfg1 = QPushButton("firmware_cfg1.bin")
+        btn_cfg1.clicked.connect(lambda: self.select_firmware("firmware_cfg1.bin"))
+        layout.addWidget(btn_cfg1)
+        
+        btn_cfg2 = QPushButton("firmware_cfg2.bin")
+        btn_cfg2.clicked.connect(lambda: self.select_firmware("firmware_cfg2.bin"))
+        layout.addWidget(btn_cfg2)
+        
+        self.setLayout(layout)
+    
+    def select_firmware(self, firmware):
+        self.selected_firmware = firmware
+        self.accept()
 
 class ESP32S3_Firmware(QtWidgets.QWidget, Ui_widget_firmware):
     pyserial_chn = QtCore.pyqtSignal(int)
+    enable_download_button = QtCore.pyqtSignal(bool)
     def __init__(self):
         super().__init__()
         self.setupUi(self)
-        #添加界面的logo
-        self.setWindowIcon(QIcon('./image/Freenove.ico'))                     #添加窗口logo
+        # Add interface logo
+        self.setWindowIcon(QIcon('./image/Freenove.ico'))                     # Add window logo
 
-        #变量申请
-        self.pyserial=serial.Serial()                                         #串口对象
-        self.Com_Dict = {}                                                    #检测所有存在的串口，将信息存储在字典中
-        self.cmd = COMMAND()                                                  #命令对象
+        # Variable declaration
+        self.pyserial=serial.Serial()                                         # Serial object
+        self.Com_Dict = {}                                                    # Detect all existing serial ports, store information in dictionary
+        self.cmd = COMMAND()                                                  # Command object
 
-        # 设置信号与槽函数
+        # Set signal and slot functions
         self.connect()
 
     def print_information(self):
@@ -40,66 +69,79 @@ class ESP32S3_Firmware(QtWidgets.QWidget, Ui_widget_firmware):
         print("3. Select the serial port corresponding to ESP32.")
         print("4. Select baud rate, the download speed is determined by baud rate, too high baud rate may fail.")
         print("5. Click the download button and wait for the download to complete.")
-
-    #信号与槽部分
+    
+    # Signal and slot section
     def connect(self):
-        self.button_firmware_scan.clicked.connect(self.port_check)                   #检测串口并重新更新到串口下拉框中
-        self.combobox_firmware_port.currentTextChanged.connect(self.port_select)     #每次检测到串口发生变化
-        self.combobox_firmware_baud.currentTextChanged.connect(self.baud_select)     #每次检测到波特率发生变化
-        self.button_firmware_download.clicked.connect(self.download)                 #调用esptool上传固件
-        self.pyserial_chn.connect(self.progressBar_show)                             #显示下载进度
+        self.button_firmware_scan.clicked.connect(self.port_check)                   # Detect serial port and update to serial port dropdown box
+        self.combobox_firmware_port.currentTextChanged.connect(self.port_select)     # Detect serial port changes
+        self.combobox_firmware_baud.currentTextChanged.connect(self.baud_select)     # Detect baud rate changes
+        self.button_firmware_download.clicked.connect(self.download)                 # Call esptool to upload firmware
+        self.pyserial_chn.connect(self.progressBar_show)                             # Show download progress
+        self.enable_download_button.connect(self.set_download_button_enabled)
 
-    #串口检测
+    def set_download_button_enabled(self, enabled):
+        self.button_firmware_download.setEnabled(enabled)
+
+    # Serial port detection
     def port_check(self):
-        port_list = list(serial.tools.list_ports.comports())                #获取串口端口号并强制转化为列表并存入port_list
-        self.combobox_firmware_port.clear()                                 #清除串口端口列表数据
+        port_list = list(serial.tools.list_ports.comports())                # Get serial port numbers and force convert to list and store in port_list
+        self.combobox_firmware_port.clear()                                 # Clear serial port list data
         self.Com_Dict.clear()
-        for port in port_list:                                              #解析串口列表数据，将其存入字典Com_Dict，并添加到屏幕端口号的下拉框中
+        for port in port_list:                                              # Parse serial port list data, store in dictionary Com_Dict, and add to screen serial port dropdown box
             if port[0] != 'COM1':
-                self.Com_Dict["%s" % port[0]] = "%s" % port[1]  # 将串口列表数据进行处理
-                self.combobox_firmware_port.addItem(port[0])                    #将串口数据添加到控件cbb_serial_select中
+                self.Com_Dict["%s" % port[0]] = "%s" % port[1]  # Process serial port list data
+                self.combobox_firmware_port.addItem(port[0])                    # Add serial port data to control cbb_serial_select
 
-        if len(self.Com_Dict) == 0:                                         #如果没有检测到端口，使用消息框打印提示信息，检测不到串口
-            print('Cannot detect serial port!')                             #在数据接收区显示“检测不到串口！”
+        if len(self.Com_Dict) == 0:                                         # If no port is detected, use message box to print prompt information, cannot detect serial port
+            print('Cannot detect serial port!')                             # Display "Cannot detect serial port!" in data receiving area
         else:
             print("\nThe following serial ports are found:")
             for port in self.Com_Dict:
                 print(port)
 
-    #打印串口波特率
+    # Print serial port baud rate
     def port_select(self):
         if self.combobox_firmware_port.currentIndex() != -1:
             str_serial_port = "The current baud port is: " + self.combobox_firmware_port.currentText()
             print(str_serial_port)
 
-    #串口选择打印提示信息
+    # Serial port selection print prompt information
     def baud_select(self):
         str_baud = "The current baud baud is: " + self.combobox_firmware_baud.currentText()
         print(str_baud)
 
-    #上传代码到机器狗
+    # Upload code to robot dog
     def upload_bin(self):
         if self.combobox_firmware_port.currentText() != '':
-            print("\nStart uploading the firmware to ESP32S3.")
-            self.progressBar_firmware.setValue(0)
+            print("\nStart uploading firmware to ESP32S3.")
+            # Cannot directly operate UI in thread, use signal to update progress bar
+            self.pyserial_chn.emit(0)
+            
+            # Determine firmware file based on user selection
+            firmware_file = self.cmd.FIRMWARE_CFG1  # Default value
+            if hasattr(self, 'selected_firmware'):
+                if self.selected_firmware == "firmware_cfg2.bin":
+                    # Need to define FIRMWARE_CFG2 constant in Command.py
+                    firmware_file = self.cmd.FIRMWARE_CFG2 if hasattr(self.cmd, 'FIRMWARE_CFG2') else self.cmd.FIRMWARE_CFG1
+            
             if platform.system() == "Windows":
                 upload_cmd = self.cmd.PYTHON + self.cmd.SPACE + self.cmd.ESPTOOL + self.cmd.SPACE + self.cmd.PORT + self.cmd.SPACE + self.combobox_firmware_port.currentText() + self.cmd.SPACE \
-                             + self.cmd.BAUD + self.cmd.SPACE + self.combobox_firmware_baud.currentText() + self.cmd.SPACE \
-                             + self.cmd.CHIP + self.cmd.SPACE + self.cmd.ESP32 + self.cmd.SPACE + self.cmd.CONFIG + self.cmd.SPACE \
-                             + self.cmd.OTA_DATA_INITAL + self.cmd.SPACE \
-                             + self.cmd.BOOTLOADER + self.cmd.SPACE \
-                             + self.cmd.PARTITION_TABLE + self.cmd.SPACE \
-                             + self.cmd.FIRMWARE + self.cmd.SPACE \
-                             + self.cmd.MUSIC
+                            + self.cmd.BAUD + self.cmd.SPACE + self.combobox_firmware_baud.currentText() + self.cmd.SPACE \
+                            + self.cmd.CHIP + self.cmd.SPACE + self.cmd.ESP32 + self.cmd.SPACE + self.cmd.CONFIG + self.cmd.SPACE \
+                            + self.cmd.OTA_DATA_INITAL + self.cmd.SPACE \
+                            + self.cmd.BOOTLOADER + self.cmd.SPACE \
+                            + self.cmd.PARTITION_TABLE + self.cmd.SPACE \
+                            + firmware_file + self.cmd.SPACE \
+                            + self.cmd.MUSIC
             else:
                 upload_cmd = self.cmd.PYTHON3 + self.cmd.SPACE + self.cmd.ESPTOOL + self.cmd.SPACE + self.cmd.PORT + self.cmd.SPACE + self.combobox_firmware_port.currentText() + self.cmd.SPACE \
-                             + self.cmd.BAUD + self.cmd.SPACE + self.combobox_firmware_baud.currentText() + self.cmd.SPACE \
-                             + self.cmd.CHIP + self.cmd.SPACE + self.cmd.ESP32 + self.cmd.SPACE + self.cmd.CONFIG + self.cmd.SPACE \
-                             + self.cmd.OTA_DATA_INITAL + self.cmd.SPACE \
-                             + self.cmd.BOOTLOADER + self.cmd.SPACE \
-                             + self.cmd.PARTITION_TABLE + self.cmd.SPACE \
-                             + self.cmd.FIRMWARE + self.cmd.SPACE \
-                             + self.cmd.MUSIC
+                            + self.cmd.BAUD + self.cmd.SPACE + self.combobox_firmware_baud.currentText() + self.cmd.SPACE \
+                            + self.cmd.CHIP + self.cmd.SPACE + self.cmd.ESP32 + self.cmd.SPACE + self.cmd.CONFIG + self.cmd.SPACE \
+                            + self.cmd.OTA_DATA_INITAL + self.cmd.SPACE \
+                            + self.cmd.BOOTLOADER + self.cmd.SPACE \
+                            + self.cmd.PARTITION_TABLE + self.cmd.SPACE \
+                            + firmware_file + self.cmd.SPACE \
+                            + self.cmd.MUSIC
             print(upload_cmd)
             try:
                 p = subprocess.Popen(upload_cmd, shell=True, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -109,14 +151,14 @@ class ESP32S3_Firmware(QtWidgets.QWidget, Ui_widget_firmware):
                         s = line.split(b'\r\n')
                         print(s[0])
                         if line.find(b'A fatal error occurred') != -1:
-                            print("Can't download it!")
+                            print("Cannot download!")
                             break
                         elif line.find(b'Failed to execute script esptool') != -1:
-                            print('Choose the wrong serial port!')
+                            print('Wrong serial port selected!')
                         elif line.find(b'Hash of data verified.') != -1:
                             num += 1
                         elif line.find(b'Hard resetting via RTS pin...') != -1:
-                            print('Upload Complete.')
+                            print('Upload complete.')
                             break
                         else:
                             if line.find(b"Writing at") == -1:
@@ -125,28 +167,43 @@ class ESP32S3_Firmware(QtWidgets.QWidget, Ui_widget_firmware):
                                 if num >= 3:
                                     buf1 = line.split(b'(')
                                     buf2 = buf1[1].split(b' %')
+                                    # Use signal to update progress bar instead of direct call
                                     self.pyserial_chn.emit(int(buf2[0]))
                                 else:
                                     pass
-                p.stdout.close()  # 关闭管道连接
-                p.kill()  # 结束线程
+                p.stdout.close()
+                p.kill()
             except Exception as e:
                 print(e)
-            self.button_firmware_download.setEnabled(True)
+            # Use signal instead of directly operating button
+            self.enable_download_button.emit(True)
             stop_thread(self.download_thread)
         else:
             print("Please scan the serial port first.")
-            self.button_firmware_download.setEnabled(True)
+            # Use signal instead of directly operating button
+            self.enable_download_button.emit(True)
             stop_thread(self.download_thread)
-    #进度条数值设置
+
+    # Progress bar value setting
     def progressBar_show(self, data):
         self.progressBar_firmware.setValue(data)
 
-    #创建一个下载线程
+    # Modify download method
     def download(self):
-        self.button_firmware_download.setEnabled(False)
-        self.download_thread = threading.Thread(target=self.upload_bin)
-        self.download_thread.start()
+        # Create and show firmware selection dialog
+        dialog = FirmwareSelectionDialog(self)
+        if dialog.exec_() == QDialog.Accepted:
+            # Save user selected firmware
+            self.selected_firmware = dialog.selected_firmware
+            print(f"Selected firmware: {self.selected_firmware}")
+            
+            # Start download process
+            self.button_firmware_download.setEnabled(False)
+            self.download_thread = threading.Thread(target=self.upload_bin)
+            self.download_thread.start()
+        else:
+            print("Firmware selection cancelled")
+            self.button_firmware_download.setEnabled(True)
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)

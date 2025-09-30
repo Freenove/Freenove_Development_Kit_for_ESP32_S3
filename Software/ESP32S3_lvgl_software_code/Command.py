@@ -14,7 +14,8 @@ class COMMAND:
     BOOTLOADER       = "0x0      ./firmware/bootloader.bin"
     PARTITION_TABLE  = "0x8000   ./firmware/partitions.bin"
     OTA_DATA_INITAL  = "0xe000   ./firmware/boot_app0.bin"
-    FIRMWARE         = "0x10000  ./firmware/firmware.bin"
+    FIRMWARE_CFG1    = "0x10000  ./firmware/firmware_cfg1.bin"
+    FIRMWARE_CFG2    = "0x10000  ./firmware/firmware_cfg2.bin"
     MUSIC            = "0x310000 ./firmware/spiffs.bin"
 
     READ_MODE        = b"R"   #读数据模式
