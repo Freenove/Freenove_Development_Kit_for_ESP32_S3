@@ -5,7 +5,7 @@
 #include "Arduino.h"
 #include "music_ui.h"
 
-#define CHECK_SENSOR 1
+#define CHECK_SENSOR 0
 
 #ifndef I2C_SDA
 #define I2C_SDA 2
