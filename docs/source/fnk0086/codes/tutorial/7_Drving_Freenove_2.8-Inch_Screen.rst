@@ -126,7 +126,7 @@ Install **TFT_eSPI_v2.5.43.zip** and **TFT_eSPI_Setups_v1.1.zip**
 How to configure (Important)
 -----------------------------------
 
-Open This PC, input %USERPROFILE%\\Documents\\Arduino\\libraries\\TFT_eSPI_Setups and press the Enter key.
+Open This PC, input %USERPROFILE%\\Documents\\Arduino\\libraries\\TFT_eSPI and press the Enter key.
 
 .. image:: ../_static/imgs/7_Drving_Freenove_2.8-Inch_Screen/Chapter07_09.png
     :align: center
@@ -136,19 +136,51 @@ Right click **User_Setup_Select.h**, click **Edit**.
 .. image:: ../_static/imgs/7_Drving_Freenove_2.8-Inch_Screen/Chapter07_10.png
     :align: center
 
-Uncomment the corresponding macro definition based on the model purchased.
+Please note that we have two different screen configurations. The initial display effect varies depending on
+the screen, as shown in the images below.
 
-.. image:: ../_static/imgs/7_Drving_Freenove_2.8-Inch_Screen/Chapter07_11.png
+.. table::
+    :align: center
+    :class: table-line
+    
+    +----------------+-----------------------+
+    | Normal Screen  | Inverted Color Screen |
+    |                |                       |
+    | |Chapter07_11| | |Chapter07_12|        |
+    +----------------+-----------------------+
+
+.. |Chapter07_11| image:: ../_static/imgs/7_Drving_Freenove_2.8-Inch_Screen/Chapter07_11.png
+.. |Chapter07_12| image:: ../_static/imgs/7_Drving_Freenove_2.8-Inch_Screen/Chapter07_12.png
+
+Locate **lines 28 and 29** in the **User_Setup_Select.h file**.
+
+If your board displays a normal image, please select "**FNK0086A_2P8_CFG1_240x320_ST7789**".
+
+.. image:: ../_static/imgs/7_Drving_Freenove_2.8-Inch_Screen/Chapter07_13.png
     :align: center
 
-If the screen displays inverted colors after burning the code (areas that should be white appear black, and areas that should be black appear white), please enable the configuration item #define FNK0086B_2P8_240x320_ST7789 and comment out the macro definition #define FNK0086A_2P8_240x320_ST7789.
+If your screen displays inverted color, select “FNK0086A_2P8_CFG2_240x320_ST7789”.
 
-.. image:: ../_static/imgs/7_Drving_Freenove_2.8-Inch_Screen/Chapter07_12.png
+.. image:: ../_static/imgs/7_Drving_Freenove_2.8-Inch_Screen/Chapter07_14.png
     :align: center
 
-:combo:`red font-bolder:Important Note: Only one macro definition should be uncommented.`
+Please note that only one macro definition can be enabled at a time. You must not keep both macro
+definitions active or comment out both simultaneously.
 
-Save the change and exit the file.
+After selecting the correct configuration, save the file. The screen configuration settings will take effect the
+next time you compile the code.
+
+If you accidentally update the TFT_eSPI library, the User_Setup_Select.h file will be overwritten and revert to
+its initial state.
+
+Don't worry. We have provided a backup of User_Setup_Select.h
+in %USERPROFILE%\\Documents\\Arduino\\libraries\\TFT_eSPI_Setups.
+
+You can copy it to %USERPROFILE%\\Documents\\Arduino\\libraries\\TFT_eSPI and repeat the modification
+steps described above
+
+.. image:: ../_static/imgs/7_Drving_Freenove_2.8-Inch_Screen/Chapter07_15.png
+    :align: center
 
 Sketch_07_TFT_Clock
 ------------------------------
