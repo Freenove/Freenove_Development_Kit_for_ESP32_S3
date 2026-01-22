@@ -1,5 +1,5 @@
 ##############################################################################
-Board_Test
+Board Test
 ##############################################################################
 
 This tutorial is designed to help you quickly verify the hardware functionality of the development board through a browser without using a local development environment (e.g., Arduino/VS Code).
