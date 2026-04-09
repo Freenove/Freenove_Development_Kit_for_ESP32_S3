@@ -18,10 +18,10 @@ void setup() {
   /*** Init drivers ***/
   int iic_num = wire_scan();
   int sd_init_state = sdcard_init();          //Initialize the SD_MMC module
-  int camera_init_state = camera_init_jpg();  //Initialize the camera drive
+  int camera_init_state = camera_init_rgb565();  //Initialize the camera drive
   int music_init_state = music_iis_init();    //Initialize the audio interface
   buzzer_init();                              //Initialize the buzzer
-  buzzer_repeat_alert(3,1);                   //Test the buzzer
+  buzzer_repeat_alert(3, 1);                   //Test the buzzer
   audio_init();                               //Test the audio module
   setup_success = driver_check_show(iic_num, sd_init_state, camera_init_state, music_init_state);
 
@@ -47,3 +47,5 @@ void loop() {
     delay(5);
   }
 }
+
+

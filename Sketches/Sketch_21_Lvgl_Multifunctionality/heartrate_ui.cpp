@@ -2,8 +2,10 @@
 #include "main_ui.h"
 #include "lv_img.h"
 #include <Wire.h>
-#include "MAX30105.h"
 #include "heartRate.h"
+
+#define I2C_BUFFER_LENGTH 128
+#include "MAX30105.h"
 
 MAX30105 heartrate;                  //apply a module object
 static lv_chart_series_t *series;   //apply an lvgl chart variable
@@ -31,6 +33,7 @@ int heartrate_init(void) {
   }
   heartrate.setup();  //Configure sensor with these settings
   heartrate_shutdown();
+  return 0;
 }
 
 //The heartrate module is enabled to enter low power mode

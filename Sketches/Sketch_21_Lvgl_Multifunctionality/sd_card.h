@@ -42,15 +42,15 @@ void sdcard_list_dir(const char * dirname, uint8_t levels);
 
 list_link *list_create_node(int index, char *name, long size);           //Create a linked list node
 void list_insert_tail(list_link *phead, char *name, long size);          //Adds a node from the end of the linked list
-list_link *sdcard_get_file_parameter(char *path, char *extension = "");  //将文件夹下指定类型的文件做成链表
+list_link *sdcard_get_file_parameter(char *path, char *extension = ""); 
 list_link *list_destory(list_link *phead);                               //Delete the contents of the linked list
 void list_printf(list_link *phead);                                      //Print the contents of the linked list
 void list_printf_back(list_link *phead);                                 //Print the contents of the list in reverse order
 char *list_find_node(list_link *phead, int index);                       //Query the index node of the linked list and return the name of the node
 int list_count_number(list_link *phead);                                 //Calculate the number of linked list nodes
 
-int sdcard_wifi_file_read(uint8_t *wifi_name, uint8_t *wifi_password, char *path="/router", char *name="WiFi.txt");   //读取文件中WiFi名称和密码
-int sdcard_wifi_file_write(uint8_t *wifi_name, uint8_t *wifi_password, char *path="/router", char *name="WiFi.txt");  //写入WiFi文件中的WiFi名称和密码
+int sdcard_wifi_file_read(uint8_t *wifi_name, uint8_t *wifi_password, char *path="/router", char *name="WiFi.txt");   
+int sdcard_wifi_file_write(uint8_t *wifi_name, uint8_t *wifi_password, char *path="/router", char *name="WiFi.txt");  
 
 void write_rgb565_to_bmp(char *path, uint8_t *buf, long size, long height, long width);
 void setup_list_head_music(void);    //Generate a linked list of audio files

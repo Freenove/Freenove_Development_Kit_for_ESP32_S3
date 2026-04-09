@@ -229,7 +229,7 @@ void list_printf(list_link *phead) {
     return;
   }
   while (temp != NULL) {
-    Serial.printf("%s:%d\r\n", temp->file_name, temp->file_size);
+    Serial.printf("%s:%ld\r\n", temp->file_name, temp->file_size);
     temp = temp->file_next;
   }
 }
@@ -245,10 +245,10 @@ void list_printf_back(list_link *phead) {
     temp = temp->file_next;
   }
   while (temp->file_prev != NULL) {
-    Serial.printf("%s:%d\r\n", temp->file_name, temp->file_size);
+    Serial.printf("%s:%ld\r\n", temp->file_name, temp->file_size);
     temp = temp->file_prev;
   }
-  Serial.printf("%s:%d\r\n", temp->file_name, temp->file_size);
+  Serial.printf("%s:%ld\r\n", temp->file_name, temp->file_size);
 }
 
 

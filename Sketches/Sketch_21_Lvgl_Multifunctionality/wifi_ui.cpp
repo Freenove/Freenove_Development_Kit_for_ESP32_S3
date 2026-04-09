@@ -629,7 +629,7 @@ void wifi_read_list_from_sdcard(void) {
   } else {
     list_link *temp = phead->file_next;
     while (temp != NULL) {
-      Serial.printf("%s:%d\r\n", temp->file_name, temp->file_size);
+      Serial.printf("%s:%ld\r\n", temp->file_name, temp->file_size);
       memset(wifi_info.name, 0, 256);
       strcat(wifi_info.name, temp->file_name);
       wifi_info.size = temp->file_size;
