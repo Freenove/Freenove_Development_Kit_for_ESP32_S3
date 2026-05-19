@@ -237,7 +237,6 @@ void setup_scr_wifi(lvgl_wifi_ui *ui) {
   lv_obj_add_event_cb(ui->wifi_btn_connect, wifi_btn_connect_event_hander, LV_EVENT_ALL, NULL);
   lv_obj_add_event_cb(ui->wifi, wifi_screen_gesture_event_hander, LV_EVENT_ALL, NULL);
   
-  camera_init_jpg();
   wifi_config_save();
 }
 
@@ -414,6 +413,8 @@ void stop_video_task(void) {
 
 //video thread
 void loopTask_video(void *pvParameters) {
+  size_t _jpg_buf_len = 0;
+  uint8_t *_jpg_buf = NULL;
   Serial.printf("loopTask_video start...\r\n");
   server_video.begin(WIFI_VIDEO_PORT);
   while (wifi_video_flag) {
@@ -422,18 +423,32 @@ void loopTask_video(void *pvParameters) {
       Serial.println("Video Server connected to a client.");      // print a message out the serial port
       while (client_video.connected() && wifi_video_flag == 1) {  // loop while the client_video's connected
         fb_video = esp_camera_fb_get();
-        if (fb_video != NULL) {
+        if(fb_video!= NULL){
+          if(fb_video->format != PIXFORMAT_JPEG){
+            bool jpeg_converted = frame2jpg(fb_video, 80, &_jpg_buf, &_jpg_buf_len);
+            if(!jpeg_converted)
+            {
+              Serial.println("Unable to convert jpeg");
+            }
+          }
+          else{
+            _jpg_buf_len = fb_video->len;
+            _jpg_buf = fb_video->buf;
+          }
           uint8_t slen[4];
-          slen[0] = fb_video->len >> 0;
-          slen[1] = fb_video->len >> 8;
-          slen[2] = fb_video->len >> 16;
-          slen[3] = fb_video->len >> 24;
+          slen[0] = _jpg_buf_len >> 0;
+          slen[1] = _jpg_buf_len >> 8;
+          slen[2] = _jpg_buf_len >> 16;
+          slen[3] = _jpg_buf_len >> 24;
           client_video.write(slen, 4);
-          client_video.write(fb_video->buf, fb_video->len);
-        } else {
-          Serial.println("Camera Error");
+          client_video.write(_jpg_buf, _jpg_buf_len);
         }
         esp_camera_fb_return(fb_video);
+        if(_jpg_buf){
+          free(_jpg_buf);
+          _jpg_buf = NULL;
+          _jpg_buf_len = 0;
+        }
       }
       client_video.stop();
     }
