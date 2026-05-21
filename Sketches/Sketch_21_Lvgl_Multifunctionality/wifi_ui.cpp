@@ -426,6 +426,8 @@ void loopTask_video(void *pvParameters) {
         if(fb_video!= NULL){
           if(fb_video->format != PIXFORMAT_JPEG){
             bool jpeg_converted = frame2jpg(fb_video, 80, &_jpg_buf, &_jpg_buf_len);
+            esp_camera_fb_return(fb_video);
+            fb_video = NULL;
             if(!jpeg_converted)
             {
               Serial.println("Unable to convert jpeg");
@@ -443,11 +445,13 @@ void loopTask_video(void *pvParameters) {
           client_video.write(slen, 4);
           client_video.write(_jpg_buf, _jpg_buf_len);
         }
-        esp_camera_fb_return(fb_video);
-        if(_jpg_buf){
+        if(fb_video){
+          esp_camera_fb_return(fb_video);
+          _jpg_buf = NULL;
+        }
+        else if(_jpg_buf){
           free(_jpg_buf);
           _jpg_buf = NULL;
-          _jpg_buf_len = 0;
         }
       }
       client_video.stop();
